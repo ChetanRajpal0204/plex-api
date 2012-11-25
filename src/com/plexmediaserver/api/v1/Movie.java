@@ -5,11 +5,14 @@ import java.util.List;
 
 import org.xml.sax.Attributes;
 
+import android.os.Parcel;
+import android.os.Parcelable;
 import android.sax.Element;
 import android.sax.EndElementListener;
 import android.sax.StartElementListener;
 
-public class Movie {
+public class Movie implements Parcelable {
+	
 	private int mId;
 	private String mKey;
 	private String mStudio;
@@ -90,6 +93,33 @@ public class Movie {
 			}
 		});
 	}
+	
+	public static Creator<Movie> CREATOR = new Creator<Movie>() {
+        public Movie createFromParcel(Parcel parcel) {
+            return new Movie(parcel);
+        }
+
+        public Movie[] newArray(int size) {
+            return new Movie[size];
+        }
+    };
+    
+    public Movie() { }
+    
+    public Movie(Parcel parcel) {
+    	mId = parcel.readInt();
+    	mRating = parcel.readFloat();
+    	mYear = parcel.readInt();
+    	mKey = parcel.readString();
+    	mStudio = parcel.readString();
+    	mTitle = parcel.readString();
+    	mSummary = parcel.readString();
+    	mTagline = parcel.readString();
+    	mContentRating = parcel.readString();
+    	mThumb = parcel.readString();
+    	mArt = parcel.readString();
+    	mVideoLink = parcel.readString();
+    }
 	
 	public int getId() {
 		return mId;
@@ -217,5 +247,26 @@ public class Movie {
 		newMovie.setArt(this.getArt());
 		newMovie.setVideoLink(this.getVideoLink());
 		return newMovie;
+	}
+
+	@Override
+	public int describeContents() {
+		return 0;
+	}
+
+	@Override
+	public void writeToParcel(Parcel dest, int flags) {
+		dest.writeInt(mId);
+		dest.writeFloat(mRating);
+		dest.writeInt(mYear);
+		dest.writeString(mKey);
+		dest.writeString(mStudio);
+		dest.writeString(mTitle);
+		dest.writeString(mSummary);
+		dest.writeString(mTagline);
+		dest.writeString(mContentRating);
+		dest.writeString(mThumb);
+		dest.writeString(mArt);
+		dest.writeString(mVideoLink);
 	}
 }
