@@ -1,4 +1,4 @@
-package com.plexmediaserver.api.v1;
+package com.media.api.model;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -25,6 +25,7 @@ public class Movie implements Parcelable {
 	private String mThumb;
 	private String mArt;
 	private String mVideoLink;
+	private String mGuid;
 	
 	public static List<Movie> appendArrayListener(final Element parent, int depth) {
 		final List<Movie> movies = new ArrayList<Movie>();
@@ -82,6 +83,9 @@ public class Movie implements Parcelable {
 				
 				value = attributes.getValue("art");
 				movie.setArt(value);
+				
+				value = attributes.getValue("guid");
+				movie.setGuid(value);
 			}
 		});
 		
@@ -119,6 +123,7 @@ public class Movie implements Parcelable {
     	mThumb = parcel.readString();
     	mArt = parcel.readString();
     	mVideoLink = parcel.readString();
+    	mGuid = parcel.readString();
     }
 	
 	public int getId() {
@@ -217,6 +222,14 @@ public class Movie implements Parcelable {
 		mVideoLink = link;
 	}
 	
+	public String getGuid() {
+		return mGuid;
+	}
+
+	public void setGuid(String guid) {
+		this.mGuid = guid;
+	}
+
 	public void clear() {
 		this.setId(-1);
 		this.setKey("");
@@ -230,6 +243,7 @@ public class Movie implements Parcelable {
 		this.setThumb("");
 		this.setArt("");
 		this.setVideoLink("");
+		this.setGuid("");
 	}
 	
 	public Movie copy() {
@@ -246,6 +260,7 @@ public class Movie implements Parcelable {
 		newMovie.setThumb(this.getThumb());
 		newMovie.setArt(this.getArt());
 		newMovie.setVideoLink(this.getVideoLink());
+		newMovie.setGuid(this.getGuid());
 		return newMovie;
 	}
 
@@ -268,5 +283,6 @@ public class Movie implements Parcelable {
 		dest.writeString(mThumb);
 		dest.writeString(mArt);
 		dest.writeString(mVideoLink);
+		dest.writeString(mGuid);
 	}
 }

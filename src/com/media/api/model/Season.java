@@ -1,4 +1,4 @@
-package com.plexmediaserver.api.v1;
+package com.media.api.model;
 
 import java.util.ArrayList;
 import java.util.List;
