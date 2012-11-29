@@ -26,6 +26,11 @@ public class Movie implements Parcelable {
 	private String mArt;
 	private String mVideoLink;
 	private String mGuid;
+	private String mOriginallyAvailableAt;
+	private String mDuration;
+	private String mAddedAt;
+	private String mVideoResolution;
+	private String mAudioCodec;
 	
 	public static List<Movie> appendArrayListener(final Element parent, int depth) {
 		final List<Movie> movies = new ArrayList<Movie>();
@@ -86,6 +91,26 @@ public class Movie implements Parcelable {
 				
 				value = attributes.getValue("guid");
 				movie.setGuid(value);
+				
+				value = attributes.getValue("originallyAvailableAt");
+				movie.setOriginallyAvailableAt(value);
+				
+				value = attributes.getValue("addedAt");
+				movie.setAddedAt(value);
+			}
+		});
+		
+		movieElement.getChild("Media").setStartElementListener(new StartElementListener() {
+			@Override
+			public void start(Attributes attributes) {
+				String value = attributes.getValue("duration");
+				movie.setDuration(value);
+				
+				value = attributes.getValue("videoResolution");
+				movie.setVideoResolution(value);
+				
+				value = attributes.getValue("audioCodec");
+				movie.setAudioCodec(value);
 			}
 		});
 		
@@ -124,6 +149,11 @@ public class Movie implements Parcelable {
     	mArt = parcel.readString();
     	mVideoLink = parcel.readString();
     	mGuid = parcel.readString();
+    	mOriginallyAvailableAt = parcel.readString();
+    	mDuration = parcel.readString();
+    	mAddedAt = parcel.readString();
+    	mVideoResolution = parcel.readString();
+    	mAudioCodec = parcel.readString();
     }
 	
 	public int getId() {
@@ -229,6 +259,46 @@ public class Movie implements Parcelable {
 	public void setGuid(String guid) {
 		this.mGuid = guid;
 	}
+	
+	public String getOriginallyAvailableAt() {
+		return mOriginallyAvailableAt;
+	}
+
+	public void setOriginallyAvailableAt(String originallyAvailableAt) {
+		mOriginallyAvailableAt = originallyAvailableAt;
+	}
+
+	public String getDuration() {
+		return mDuration;
+	}
+
+	public void setDuration(String duration) {
+		mDuration = duration;
+	}
+
+	public String getAddedAt() {
+		return mAddedAt;
+	}
+
+	public void setAddedAt(String addedAt) {
+		mAddedAt = addedAt;
+	}
+
+	public String getVideoResolution() {
+		return mVideoResolution;
+	}
+
+	public void setVideoResolution(String videoResolution) {
+		mVideoResolution = videoResolution;
+	}
+
+	public String getAudioCodec() {
+		return mAudioCodec;
+	}
+
+	public void setAudioCodec(String audioCodec) {
+		mAudioCodec = audioCodec;
+	}
 
 	public void clear() {
 		this.setId(-1);
@@ -244,6 +314,11 @@ public class Movie implements Parcelable {
 		this.setArt("");
 		this.setVideoLink("");
 		this.setGuid("");
+		this.setOriginallyAvailableAt("");
+		this.setDuration("");
+		this.setAddedAt("");
+		this.setVideoResolution("");
+		this.setAudioCodec("");
 	}
 	
 	public Movie copy() {
@@ -261,6 +336,11 @@ public class Movie implements Parcelable {
 		newMovie.setArt(this.getArt());
 		newMovie.setVideoLink(this.getVideoLink());
 		newMovie.setGuid(this.getGuid());
+		newMovie.setOriginallyAvailableAt(this.getOriginallyAvailableAt());
+		newMovie.setDuration(this.getDuration());
+		newMovie.setAddedAt(this.getAddedAt());
+		newMovie.setVideoResolution(this.getVideoResolution());
+		newMovie.setAudioCodec(this.getAudioCodec());
 		return newMovie;
 	}
 
@@ -284,5 +364,10 @@ public class Movie implements Parcelable {
 		dest.writeString(mArt);
 		dest.writeString(mVideoLink);
 		dest.writeString(mGuid);
+		dest.writeString(mOriginallyAvailableAt);
+		dest.writeString(mDuration);
+		dest.writeString(mAddedAt);
+		dest.writeString(mVideoResolution);
+		dest.writeString(mAudioCodec);
 	}
 }
