@@ -31,6 +31,11 @@ public class PlexApi implements MediaApi {
 		if (mToken != null && mToken.length() > 0) {
 			HttpGet req = new HttpGet(url);
 			req.addHeader("X-Plex-Token", mToken);
+			req.addHeader("X-Plex-Platform", "Android");
+			// TODO: provide the below info
+			req.addHeader("X-Plex-Platform-Version", "");
+			req.addHeader("X-Plex-Device", "");
+			req.addHeader("X-Plex-Client-Identifier", "");
 			return req;
 		}
 		return new HttpGet(url);
